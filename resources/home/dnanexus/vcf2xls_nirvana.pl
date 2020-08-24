@@ -818,6 +818,17 @@ sub write_variant {
   worksheet_write($sheet_name, $worksheet_offset{ $sheet_name }, $field_index{ 'AF_ESP_MAX' }, $$entry{INFO}{ 'AF_ESP_MAX' }||= 0, $format);
   worksheet_write($sheet_name, $worksheet_offset{ $sheet_name }, $field_index{ 'AF_ExAC' }, $$entry{INFO}{ 'AF_ExAC'    }||= 0, $format);
 
+  for my $infos ($$entry{INFO}) {
+    my %infos = %$infos;
+    my $egg_field_to_add = ( first { m/^EGG*/ } sort keys %infos ) || '';
+
+    if ($egg_field_to_add) {
+      my $field_to_add = $egg_field_to_add;
+      $field_to_add = s/^EGG_//;
+      worksheet_write($sheet_name, $worksheet_offset{ $sheet_name }, $field_index{ '$field_to_add' }, $$entry{INFO}{$egg_field_to_add, $format})
+    }
+  }
+
   $comment ||= "";
 
   worksheet_write($sheet_name, $worksheet_offset{ $sheet_name }, $field_index{ 'Comment' }, "$comment", $format);
