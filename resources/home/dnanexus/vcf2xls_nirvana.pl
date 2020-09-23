@@ -820,11 +820,11 @@ sub write_variant {
 
   for my $infos ($$entry{INFO}) {
     my %infos = %$infos;
-    my $egg_field_to_add = ( first { m/^EGG*/ } sort keys %infos ) || '';
+    my $egg_field_to_add = ( first { m/^EGGD*/ } sort keys %infos ) || '';
 
     if ($egg_field_to_add) {
       my $field_to_add = $egg_field_to_add;
-      $field_to_add = s/^EGG_//;
+      $field_to_add = s/^EGGD_//;
       worksheet_write($sheet_name, $worksheet_offset{ $sheet_name }, $field_index{ '$field_to_add' }, $$entry{INFO}{$egg_field_to_add, $format})
     }
   }
